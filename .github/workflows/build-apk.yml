@@ -40,25 +40,25 @@ jobs:
           fetch_blob fdf9220868d83d2682459434955c9343fd239c3c PescaLuceAlarm/app/build.gradle
           fetch_blob 2341a1097cbde80de2d6af4cb6d4abbb7ee4cf59 PescaLuceAlarm/app/src/main/AndroidManifest.xml
           fetch_blob 5cc8c915bd73158d58e5325addf74c7a92188975 PescaLuceAlarm/app/src/main/res/values/styles.xml
-          fetch_blob ee13c7f924e7b7df1c86c727b036b8c78b354547 PescaLuceAlarm/app/src/main/java/com/incrivio/pescaluce/AlarmOverlayView.java
-          fetch_blob 890af225be98b160402a47b65224b12d21fd3e78 PescaLuceAlarm/app/src/main/java/com/incrivio/pescaluce/MainActivity.java
+          fetch_blob 815383d456422813d8bb81651ea1b8d389236ee4 PescaLuceAlarm/app/src/main/java/com/incrivio/pescaluce/AlarmOverlayView.java
+          fetch_blob 59cd5378cbaad919cf5da2e359a70e5f86421d89 PescaLuceAlarm/app/src/main/java/com/incrivio/pescaluce/MainActivity.java
 
       - name: Set app version
         shell: bash
         run: |
-          sed -i "s/versionCode 1/versionCode 3/" PescaLuceAlarm/app/build.gradle
-          sed -i "s/versionName '1.0'/versionName '1.2'/" PescaLuceAlarm/app/build.gradle
+          sed -i "s/versionCode 1/versionCode 4/" PescaLuceAlarm/app/build.gradle
+          sed -i "s/versionName '1.0'/versionName '2.0'/" PescaLuceAlarm/app/build.gradle
 
       - name: Build debug APK
         working-directory: PescaLuceAlarm
         run: gradle --no-daemon assembleDebug
 
       - name: Copy APK
-        run: cp PescaLuceAlarm/app/build/outputs/apk/debug/app-debug.apk PescaLuceAlarm-v1.2.apk
+        run: cp PescaLuceAlarm/app/build/outputs/apk/debug/app-debug.apk PescaLuceAlarm-v2.0.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: PescaLuceAlarm-v1.2-APK
-          path: PescaLuceAlarm-v1.2.apk
+          name: PescaLuceAlarm-v2.0-APK
+          path: PescaLuceAlarm-v2.0.apk
           if-no-files-found: error
