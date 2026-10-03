@@ -41,7 +41,7 @@ jobs:
           fetch_blob 2341a1097cbde80de2d6af4cb6d4abbb7ee4cf59 PescaLuceAlarm/app/src/main/AndroidManifest.xml
           fetch_blob 5cc8c915bd73158d58e5325addf74c7a92188975 PescaLuceAlarm/app/src/main/res/values/styles.xml
           fetch_blob 57ce97e9b4adce84ec84ec9bca3569bcf3cad882 PescaLuceAlarm/app/src/main/java/com/incrivio/pescaluce/AlarmOverlayView.java
-          fetch_blob 889c73089140cfcc965334e08bd2617c5ea0f358 PescaLuceAlarm/app/src/main/java/com/incrivio/pescaluce/MainActivity.java
+          fetch_blob 494f99c58e479d0d3c481bf393c59c41c4414517 PescaLuceAlarm/app/src/main/java/com/incrivio/pescaluce/MainActivity.java
 
       - name: Set app version
         shell: bash
