@@ -14,10 +14,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Java 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
@@ -27,20 +27,28 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Recreate Android project
+      - name: Materialize Android sources
         shell: bash
         run: |
-          base64 -d project.zip.b64 > project.zip
-          unzip -q project.zip
+          set -e
+          fetch_blob() {
+            sha="$1"
+            path="$2"
+            mkdir -p "$(dirname "$path")"
+            curl -fsSL "https://api.github.com/repos/giuseppeadinolfiek-prog/Progetto-luce-/git/blobs/$sha"               | jq -r '.content'               | tr -d '\n'               | base64 -d > "$path"
+          }
+          fetch_blob fdf9220868d83d2682459434955c9343fd239c3c PescaLuceAlarm/app/build.gradle
+          fetch_blob 2341a1097cbde80de2d6af4cb6d4abbb7ee4cf59 PescaLuceAlarm/app/src/main/AndroidManifest.xml
+          fetch_blob 5cc8c915bd73158d58e5325addf74c7a92188975 PescaLuceAlarm/app/src/main/res/values/styles.xml
+          fetch_blob e6651899dced9861a905ac6f37bef0dd60bb563a PescaLuceAlarm/app/src/main/java/com/incrivio/pescaluce/AlarmOverlayView.java
+          fetch_blob c7e3c6c6844ce0ed76db9df0e97e8f86efc087c8 PescaLuceAlarm/app/src/main/java/com/incrivio/pescaluce/MainActivity.java
 
       - name: Build debug APK
         working-directory: PescaLuceAlarm
         run: gradle --no-daemon assembleDebug
 
       - name: Copy APK
-        shell: bash
-        run: |
-          cp PescaLuceAlarm/app/build/outputs/apk/debug/app-debug.apk PescaLuceAlarm.apk
+        run: cp PescaLuceAlarm/app/build/outputs/apk/debug/app-debug.apk PescaLuceAlarm.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
